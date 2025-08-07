@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: #0056b3;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        .logo {
+            position: absolute;
+            top: 0px;
+            width: 150px;
+            height: 130px;
+        }
+        .logo-left {
+            left: 20px;
+        }
+        .logo-right {
+            right: 20px;
+        }
+        h1 {
+            background-color: #0056b3;
+            color: white;
+            padding: 5px;
+            text-align: center;
+        }
+        h2 {
+            text-align: center;
+            font-size: xx-large;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background: #004085;
+            padding: 10px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 16px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #0056b3;
+            color: white;
+        }
+        input, textarea {
+            width: 95%;
+            padding: 8px;
+            margin: 5px 0;
+        }
+        button {
+            background-color: #0056b3;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #004085;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='images/siwes.png') }}" alt="Logo Left" class="logo logo-left" />
+        <h2>Welcome to UDUS SIWES E-Logbook Portal</h2>
+        <img src="{{ url_for('static', filename='images/udus.png') }}" alt="Logo Right" class="logo logo-right" />
+    </header>
+
+    <nav>
+        <a href="{{ url_for('student_dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('profile') }}">Profile</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+
+    <h1>Student Dashboard</h1>
+
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <!-- Student's Department -->
+            <div style="font-weight: bold; font-size: 18px;">
+                Department: {{ student.department }}
+            </div>
+            
+            <!-- Week's Start and End Date -->
+            <div>
+                <label for="start_date">Week Start Date:</label>
+                <input type="date" id="start_date" name="start_date" required>
+                <label for="end_date">End Date:</label>
+                <input type="date" id="end_date" name="end_date" required>
+            </div>
+        </div>
+
+        <h2>Weekly Progress Chart</h2>
+        <form action="{{ url_for('submit_logbook') }}" method="POST" enctype="multipart/form-data">
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>Description of Works Done</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Monday<br>
+                            <input type="date" name="monday_date" required>
+                        </td>
+                        <td>
+                            <textarea name="monday_entry" rows="2" required></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Tuesday<br>
+                            <input type="date" name="tuesday_date" required>
+                        </td>
+                        <td>
+                            <textarea name="tuesday_entry" rows="2" required></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Wednesday<br>
+                            <input type="date" name="wednesday_date" required>
+                        </td>
+                        <td>
+                            <textarea name="wednesday_entry" rows="2" required></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Thursday<br>
+                            <input type="date" name="thursday_date" required>
+                        </td>
+                        <td>
+                            <textarea name="thursday_entry" rows="2" required></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Friday<br>
+                            <input type="date" name="friday_date" required>
+                        </td>
+                        <td>
+                            <textarea name="friday_entry" rows="2" required></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Saturday<br>
+                            <input type="date" name="saturday_date" required>
+                        </td>
+                        <td>
+                            <textarea name="saturday_entry" rows="2" required></textarea>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+                <div style="margin-bottom: 20px;">
+                    <label for="week_no">Week Number:</label>
+                    <input type="number" id="week_no" name="week_no" min="1" required>
+                </div>
+                <form action="{{ url_for('submit_logbook') }}" method="POST" enctype="multipart/form-data">
+                    <!-- Existing fields -->
+                    <div>
+                        <label for="attachment">Upload Attachment (optional):</label>
+                        <input type="file" id="attachment" name="attachment" accept=".jpg,.jpeg,.png,.pdf">
+                    </div>
+                    <p><strong>Form 08 Upload:</strong></p>
+        
+        <!-- Display success or error messages dynamically -->
+        {% if message %}
+            <div class="message {{ 'success' if message.type == 'success' else 'error' }}">
+                {{ message.content }}
+            </div>
+        {% endif %}
+
+        <form action="{{ url_for('upload_form08') }}" method="POST" enctype="multipart/form-data">
+            <label for="form08">Upload Form 08 (PDF):</label>
+            <input type="file" id="form08" name="form08" accept="application/pdf" required>
+            <button type="submit">Upload</button>
+        </form>
+                    <button type="submit">Submit Logbook</button>
+                </form> 
+        </form>
+    </div>
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="{{ url_for('view_feedback') }}">
+            <button type="button">View Feedback</button>
+        </a>
+    </div>
+</body>
+</html>
