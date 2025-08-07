@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coordinator Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: #0056b3;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            font-size: xx-large;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+        .logo {
+            position: absolute;
+            top: 0px;
+            width: 150px;
+            height: 135px;
+        }
+        .logo-left{
+            left: 20px;
+        }
+        .logo-right{
+            right: 20px;
+        }
+        h1{
+            text-align: center;
+            padding: 5px;
+            background-color: #0056b3;
+            color: #f4f4f9;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background: #0375e7;
+            padding: 10px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 16px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            background-color: #160286;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #000cb6;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <img src="{{ url_for('static', filename='images/siwes.png') }}" alt="Logo Left" class="logo logo-left"/>
+        <p>Welcome to UDUS SIWES E-Logbook portal</p>
+        <img src="{{ url_for('static', filename='images/udus.png') }}" alt="Logo right" class="logo logo-right"/>
+    </header>
+        <h1>Coordinator Dashboard</h1>
+    
+    <nav>
+        <a href="{{ url_for('coordinator_dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+    <div class="container">
+        <h2>Welcome, SIWES Coordinator!</h2>
+        <p><strong>Assigned Students:</strong> {{ total_students }}</p>
+        </table>
+        
+
+        <form action="{{ url_for('manage_supervisors') }}" method="get">
+            <button type="submit">Manage Supervisors</button>
+        </form>
+        
+        
+    </div>
+</body>
+</html>

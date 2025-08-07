@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - SIWES E-Logbook</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        h1 {
+        
+            text-align: center;
+            padding: 5px;
+            background-color: #0056b3;
+            color: #f4f4f9;
+        }
+        header {
+            background-color: #0056b3;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            font-size: xx-large;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+        .logo {
+            position: absolute;
+            top: 0px;
+            width: 150px;
+            height: 135px;
+        }
+        .logo-left{
+            left: 20px;
+        }
+        .logo-right{
+            right: 20px;
+        }
+
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background: #004085;
+            padding: 10px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 16px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #0056b3;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #004085;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+     <!-- Header -->
+     <header>
+        <img src="{{ url_for('static', filename='images/siwes.png') }}" alt="Logo Left" class="logo logo-left"/>
+        <p>Welcome to UDUS SIWES E-Logbook portal</p>
+        <img src="{{ url_for('static', filename='images/udus.png') }}" alt="Logo right" class="logo logo-right"/>
+    </header>
+
+  
+    
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#">Home</a>
+        <a href="{{ url_for('students_register') }}">Register</a>
+        <a href="{{ url_for('login') }}">Login</a>
+        <a href="#about">About Us</a>
+    </nav>
+      <!-- Header -->
+    
+      <h1>Login form</h1>
+
+    <!-- Login Form -->
+    <form action="{{ url_for('login') }}" method="POST">
+        <h2>Login to Your Account</h2>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+        <button type="submit">Login</button>
+    </form>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 SIWES E-Logbook. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

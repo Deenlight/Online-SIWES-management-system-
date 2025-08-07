@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: #004085;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background: #0056b3;
+            padding: 10px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 16px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        p {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f9;
+        }
+        caption {
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Student Details</h1>
+    </header>
+    <nav>
+        <a href="{{ url_for('supervisor_dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+    <div class="container">
+        <h2>Profile</h2>
+        <p><strong>Name:</strong> {{ student.full_name }}</p>
+        <p><strong>Matric/Admission Number:</strong> {{ student.matric_no }}</p>
+        <p><strong>Course:</strong> {{ student.course_of_study }}</p>
+        <p><strong>Level:</strong> {{ student.level }}</p>
+        <p><strong>Placement:</strong> {{ student.placement }}</p>
+        <p><strong>Form08:</strong> 
+            {% if student.form08_filename %}
+            <a href="{{ url_for('uploaded_file', filename=student.form08_filename) }}" target="_blank">View Form08</a>
+            {% else %}
+            Not uploaded.
+            {% endif %}
+        </p>
+        
+        <h3>Logbook Details</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Week Number</th>
+            <th>Week Ending</th>
+            <th>Day/Date</th>
+            <th>Log Entry</th>
+            <th>Attachment</th>
+            <th>Supervisor Feedback</th>
+            <th>Review Logbook</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for (year, week), week_details in weeks.items() %}
+        <tr>
+            <td rowspan="{{ week_details.logs|length }}">{{ week }}</td>
+            <td rowspan="{{ week_details.logs|length }}">{{ week_details.week_ending.strftime('%d %B %Y') }}</td>
+            {% for log in week_details.logs %}
+                {% if not loop.first %}
+                <tr>
+                {% endif %}
+                    <td>{{ log.date.strftime('%A').upper() }} ({{ log.date.strftime('%d %B %Y') }})</td>
+                    <td>{{ log.content }}</td>
+                    <td>
+                        <a href="{{ log.attachment }}">View Attachment</a>
+                    </td>
+                    {% if loop.first %}
+                    <td rowspan="{{ week_details.logs|length }}">
+                        {% if week_details.feedback %}
+                            <strong>{{ week_details.feedback }}</strong>
+                        {% else %}
+                            <p>No feedback yet.</p>
+                        {% endif %}
+                    </td>
+                    <td rowspan="{{ week_details.logs|length }}">
+                        {% if not week_details.feedback %}
+                        <form action="{{ url_for('review_logbook', year=year, week=week, student_id=student.id) }}" method="POST">
+                            <textarea name="feedback" placeholder="Enter feedback for this week" required></textarea>
+                            <button type="submit">Submit Feedback</button>
+                        </form>
+                        {% endif %}
+                    </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        {% endfor %}
+    </tbody>
+</table>
+
+    </div>
+</body>
+</html>

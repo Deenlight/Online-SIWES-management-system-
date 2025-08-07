@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Students</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: #0056b3;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background: #004085;
+            padding: 10px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 16px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #333;
+        }
+        form {
+            margin: 20px 0;
+        }
+        form label {
+            display: block;
+            margin: 10px 0 5px;
+            font-size: 16px;
+            color: #333;
+        }
+        form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        button {
+            background-color: #0056b3;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #004085;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table th, table td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        table th {
+            background-color: #0056b3;
+            color: white;
+        }
+        table td {
+            background-color: #f9f9f9;
+        }
+        .actions button {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Manage Students</h1>
+    </header>
+    <nav>
+        <a href="{{ url_for('admin_dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+    <div class="container">
+        <h2>Add Student</h2>
+        <form method="POST" action="{{ url_for('manage_students') }}">
+            <label for="full_name">Full Name:</label>
+            <input type="text" id="full_name" name="full_name" required>
+        
+            
+            <label for="matric_no">Matric No:</label>
+            <input type="text" id="matric_no" name="matric_no" required>
+        
+            <label for="course_of_study">Course of Study:</label>
+            <input type="text" id="course_of_study" name="course_of_study" required>
+        
+            <label for="level">Level:</label>
+        <input type="number" id="level" name="level" placeholder="Enter your level" required>
+
+        <label for="faculty">Faculty:</label>
+        <input type="text" id="faculty" name="faculty" placeholder="Enter your faculty" required>
+
+        <label for="department">Department:</label>
+        <input type="text" id="department" name="department" placeholder="Enter your department" required>
+
+        <label for="phone_number">Phone No:</label>
+        <input type="number" id="level" name="phone_number" placeholder="Enter your phone number" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+        <!-- Added Password Field -->
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+        <label for="sex">Sex:</label>
+        <select id="sex" name="sex" required>
+            <option value="" disabled selected>Select your gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+        </select>
+
+        <label for="placement">SIWES Placement (Industry and Location):</label>
+        <textarea id="placement" name="placement" placeholder="Enter the industry name and location" required></textarea>
+
+        <label for="industry_supervisor">Industry Supervisor Name:</label>
+        <input type="text" id="industry_supervisor" name="industry_supervisor" placeholder="Enter the supervisor's name" required>
+
+        <label for="industry_supervisor_email">Industry Supervisor Email:</label>
+        <input type="email" id="industry_supervisor_email" name="industry_supervisor_email" placeholder="Enter the supervisor's email" required>
+
+        <label for="coordinator_name">Department SIWES Coordinator Name:</label>
+        <input type="text" id="coordinator_name" name="coordinator_name" placeholder="Enter the coordinator's name" required>
+
+        <label for="coordinator_email">Department SIWES Coordinator Email:</label>
+        <input type="email" id="coordinator_email" name="coordinator_email" placeholder="Enter the coordinator's email" required>
+
+        
+            <button type="submit">Add Student</button>
+        </form>
+        
+
+        <h2>Existing Students</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Admission No</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for student in students %}
+        <tr>
+            <td>{{ student.full_name }}</td>
+            <td>{{ student.email }}</td>
+            <td>{{ student.matric_no }}</td>
+            <td class="actions">
+                <form action="{{ url_for('delete_student', student_id=student.id) }}" method="POST" style="display: inline;">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+    </div>
+</body>
+</html>

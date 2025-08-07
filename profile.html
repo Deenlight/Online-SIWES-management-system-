@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: #0056b3;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background: #004085;
+            padding: 10px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 16px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        form {
+            margin-top: 20px;
+        }
+        button {
+            background-color: #0056b3;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            display: inline-block;
+        }
+        button:hover {
+            background-color: #004085;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Student Profile</h1>
+    </header>
+    <nav>
+        <a href="{{ url_for('student_dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('profile') }}">Profile</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+    <div class="container">
+        <h2>Your Profile</h2>
+        <p><strong>Full Name:</strong> {{ student.full_name }}</p>
+        <p><strong>Matric/Admission Number:</strong> {{ student.matric_no }}</p>
+        <p><strong>Course of Study:</strong> {{ student.course_of_study }}</p>
+        <p><strong>Level:</strong> {{ student.level }}</p>
+        <p><strong>Faculty:</strong> {{ student.faculty }}</p>
+        <p><strong>Department:</strong> {{ student.department }}</p>
+        <p><strong>Email:</strong> {{ student.email }}</p>
+        <p><strong>Placement:</strong> {{ student.placement }}</p>
+        <p><strong>Supervisor:</strong> {{ student.supervisor.full_name }} ({{ student.supervisor.email }})</p>
+
+        <form action="{{ url_for('student_dashboard') }}" method="GET">
+            <button type="submit">Back to Dashboard</button>
+        </form>
+    </div>
+</body>
+</html>

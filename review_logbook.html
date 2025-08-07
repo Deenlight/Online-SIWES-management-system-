@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Logbooks</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: #0056b3;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            font-size: xx-large;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+        .logo {
+            position: absolute;
+            top: 0px;
+            width: 150px;
+            height: 135px;
+        }
+        .logo-left{
+            left: 20px;
+        }
+        .logo-right{
+            right: 20px;
+        }
+        h1 {
+            background-color: #0056b3;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background: #004085;
+            padding: 10px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 16px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        table th {
+            background-color: #0056b3;
+            color: white;
+        }
+        textarea {
+            width: 100%;
+            resize: none;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #0056b3;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 5px;
+            font-size: 14px;
+        }
+        button:hover {
+            background-color: #004085;
+        }
+        form {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <img src="{{ url_for('static', filename='images/siwes.png') }}" alt="Logo Left" class="logo logo-left"/>
+        <p>Welcome to UDUS SIWES E-Logbook portal</p>
+        <img src="{{ url_for('static', filename='images/udus.png') }}" alt="Logo right" class="logo logo-right"/>
+    </header>
+    <nav>
+        <a href="{{ url_for('supervisor_dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+    <h1>Review Logbooks</h1>
+
+    <div class="container">
+        <h2>Logbook Details</h2>
+        <p><strong>Student:</strong> {{ submission.student.full_name }}</p>
+        <p><strong>Date:</strong> {{ submission.date }}</p>
+        <p><strong>Entry:</strong> {{ submission.entry }}</p>
+        <form action="{{ url_for('review_logbook', submission_id=submission.id) }}" method="POST">
+            <label for="feedback">Feedback:</label>
+            <textarea id="feedback" name="feedback" rows="5" required></textarea>
+            <button type="submit">Submit Review</button>
+        </form>
+    </div>
+
+</body>
+</html>

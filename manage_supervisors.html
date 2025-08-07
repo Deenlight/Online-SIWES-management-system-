@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Supervisors</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: #0056b3;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background: #004085;
+            padding: 10px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 16px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h2, h3 {
+            color: #333;
+        }
+        form {
+            margin: 20px 0;
+        }
+        form label {
+            display: block;
+            margin: 10px 0 5px;
+            font-size: 16px;
+            color: #333;
+        }
+        form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        button {
+            background-color: #0056b3;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #004085;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table th, table td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        table th {
+            background-color: #0056b3;
+            color: white;
+        }
+        table td {
+            background-color: #f9f9f9;
+        }
+        .actions button {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Manage Supervisors</h1>
+    </header>
+    <nav>
+        <a href="{{ url_for('coordinator_dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+    <div class="container">
+        <h2>Add/Edit Supervisors</h2>
+        <form method="POST" action="{{ url_for('manage_supervisors') }}">
+            <label for="full_name">Supervisor Name:</label>
+            <input type="text" id="full_name" name="full_name" required>
+        
+            <label for="email">Supervisor Email:</label>
+            <input type="email" id="email" name="email" required>
+        
+            <label for="staff_id">Staff ID:</label>
+            <input type="text" id="staff_id" name="staff_id" required>
+        
+            <label for="industry">Industry:</label>
+            <input type="text" id="industry" name="industry" required>
+        
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        
+            <label for="assigned_students">Assign Students (Comma-separated Matric Numbers):</label>
+            <input type="text" id="assigned_students" name="assigned_students" placeholder="e.g., MAT001, MAT002, MAT003">
+        
+            <button type="submit">Save</button>
+        </form>
+        
+
+        <h3>Existing Supervisors</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Assigned Students</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for supervisor in supervisors %}
+                <tr>
+                    <td>{{ supervisor.full_name }}</td>
+                    <td>{{ supervisor.email }}</td>
+                    <td>
+                        {% for student in supervisor.students %}
+                            {{ student.matric_no }} ({{ student.full_name }})<br>
+                        {% endfor %}
+                    </td>
+                    
+                    <td class="actions">
+                        <form action="{{ url_for('edit_supervisor', supervisor_id=supervisor.id) }}" method="GET" style="display: inline;">
+                            <button type="submit">Edit</button>
+                        </form>
+                        <form action="{{ url_for('delete_supervisor', supervisor_id=supervisor.id) }}" method="POST" style="display: inline;">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            
+        </table>
+    </div>
+</body>
+</html>
