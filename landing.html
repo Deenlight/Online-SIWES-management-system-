@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIWES E-Logbook - Landing</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        header {
+            background-color: #0056b3;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            font-size: xx-large;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+        .logo {
+            position: absolute;
+            top: 0px;
+            width: 155px;
+            height: 155px;
+        }
+        .logo-left{
+            left: 20px;
+        }
+        .logo-right{
+            right: 20px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background: #004085;
+            padding: 10px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 16px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        section {
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1, h2 {
+            color: #0056b3;
+        }
+        h3 {
+            color: #f4f4f9;
+            
+        }
+
+        p {
+            color: #000000;
+            line-height: 1.0;
+        }
+        
+
+        .btn {
+            display: inline-block;
+            background-color: #0056b3;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background-color: #004085;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <img src="{{ url_for('static', filename='images/siwes.png') }}" alt="Logo Left" class="logo logo-left"/>
+        <h3>Welcome to UDUS SIWES E-Logbook portal</h3>
+        <img src="{{ url_for('static', filename='images/udus.png') }}" alt="Logo right" class="logo logo-right"/>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#">Home</a>
+        <a href="{{ url_for('students_register') }}">Register</a>
+        <a href="{{ url_for('login') }}">Login</a>
+        
+    </nav>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2>About SIWES</h2>
+        <p>
+            The Students Industrial Work Experience Scheme (SIWES) is a skill acquisition program designed for 
+            Nigerian students in tertiary institutions. It bridges the gap between theoretical classroom learning 
+            and practical industrial experience by placing students in real-world work environments.
+        </p>
+    </section>
+
+    <!-- Learn More Section -->
+    <section>
+        <h2>Learn More</h2>
+        <p>
+            Our SIWES E-Logbook system is a digital solution that simplifies the process of recording and managing 
+            industrial work experience. Students can submit their daily/weekly logs, while supervisors can review 
+            and provide feedback seamlessly.
+        </p>
+        <a href="{{ url_for('students_register') }}" class="btn">Get Started</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 SIWES E-Logbook. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
